@@ -16,11 +16,12 @@ Gem::Specification.new do |s|
   s.files        = `git ls-files -- lib/*`.split("\n")
   s.executables  = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
   s.require_path = "lib"
-  if RSpec::Parallel::Version::STRING =~ /[a-zA-Z]+/
+  #if RSpec::Parallel::Version::STRING =~ /[a-zA-Z]+/
     # rspec-support is locked to our version when running pre,rc etc
-    s.add_runtime_dependency "rspec", "= #{RSpec::Parallel::Version::STRING}"
-  else
+  #  s.add_runtime_dependency "rspec", "= #{RSpec::Parallel::Version::STRING}"
+  #else
     # rspec-support must otherwise match our major/minor version
-    s.add_runtime_dependency "rspec", "~> #{RSpec::Parallel::Version::STRING.split('.')[0..1].concat(['0']).join('.')}"
-  end
+    #s.add_runtime_dependency "rspec", "~> #{RSpec::Parallel::Version::STRING.split('.')[0..1].concat(['0']).join('.')}"
+  s.add_runtime_dependency "rspec", "~> 3.4"
+  #end
 end
