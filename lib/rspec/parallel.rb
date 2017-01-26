@@ -30,8 +30,11 @@ module RSpec
   end
 
   module Parallel
+    module RSpec
+      module Core
+        class ExampleGroup
     # Runs all the examples in this group in a separate thread for each
-    def RSpec::Core::ExampleGroup.run_parallel(reporter, num_threads, mutex, used_threads)
+    def run_parallel(reporter, num_threads, mutex, used_threads)
       if RSpec.world.wants_to_quit
         RSpec.world.clear_remaining_example_groups if top_level?
         return
@@ -60,13 +63,16 @@ module RSpec
 
     # @private
     # Runs the examples in this group in a separate thread each
-    def RSpec::Core::ExampleGroup.run_examples_parallel(reporter, threads, mutex)
+    def run_examples_parallel(reporter, threads, mutex)
       ordering_strategy.order(filtered_examples).map do |example|
         next if RSpec.world.wants_to_quit
         instance = new
         set_ivars(instance, before_context_ivars)
         mutex.synchronize do
           threads.run(example, instance, reporter)
+        end
+      end
+    end
         end
       end
     end
