@@ -30,11 +30,9 @@ module RSpec
   end
 
   module Parallel
-    module RSpec
-      module Core
-        class ExampleGroup
-    # Runs all the examples in this group in a separate thread for each
-    def run_parallel(reporter, num_threads, mutex, used_threads)
+    RSpec::Core::ExampleGroup.class_eval do
+     # Runs all the examples in this group in a separate thread for each
+     def run_parallel(reporter, num_threads, mutex, used_threads)
       if RSpec.world.wants_to_quit
         RSpec.world.clear_remaining_example_groups if top_level?
         return
@@ -73,9 +71,7 @@ module RSpec
         end
       end
     end
-        end
-      end
-    end
+   end
     
 #     class << RSpec::Core::Configuration
 #       attr_accessor :thread_maximum
