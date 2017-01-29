@@ -1,7 +1,6 @@
 module RSpec
   module Parallel
     class Parser < RSpec::Core::Parser
-      def parser(options)
     # rubocop:disable MethodLength
     # rubocop:disable Metrics/AbcSize
     # rubocop:disable CyclomaticComplexity
