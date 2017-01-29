@@ -103,10 +103,11 @@ examples_count = @world.example_count(example_groups)
       #   or the configured failure exit code (1 by default) if specs
       #   failed.
       def run_specs_parallel(example_groups)
-        @configuration.reporter.report(@world.example_count(example_groups)) do |reporter|
+        success = @configuration.reporter.report(@world.example_count(example_groups)) do |reporter|
           begin
             #hook_context = RSpec::Core::SuiteHookContext.new
             #@configuration.hooks.run(:before, :suite, hook_context)
+            puts "max threads:- #{@configuration.thread_maximum}"
             @configuration.with_suite_hooks do
               group_threads = RSpec::Parallel::ExampleGroupThreadRunner.new(@configuration.thread_maximum)
               example_groups.each { |g| group_threads.run(g, reporter) }
@@ -122,6 +123,7 @@ examples_count = @world.example_count(example_groups)
           #  @configuration.hooks.run(:after, :suite, hook_context)
           end
         end
+        success ? 0 : @configuration.failure_exit_code
       end
     end
   end
