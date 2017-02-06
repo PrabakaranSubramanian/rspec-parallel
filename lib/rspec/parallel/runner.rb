@@ -107,7 +107,7 @@ examples_count = @world.example_count(example_groups)
           begin
             #hook_context = RSpec::Core::SuiteHookContext.new
             #@configuration.hooks.run(:before, :suite, hook_context)
-            puts "max threads:- #{@configuration.thread_maximum}"
+            #puts "max threads:- #{@configuration.thread_maximum}"
             @configuration.with_suite_hooks do
               group_threads = RSpec::Parallel::ExampleGroupThreadRunner.new(@configuration.thread_maximum)
               example_groups.each { |g| group_threads.run(g, reporter) }
