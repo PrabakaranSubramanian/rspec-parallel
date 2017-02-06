@@ -31,6 +31,7 @@ module RSpec
       # tracking
       def run(example_group, reporter)
         @thread_array.push Thread.start {
+          puts "example_group.run_parallel"
           example_group.run_parallel(reporter, @max_threads, @mutex, @used_threads)
           @thread_array.delete Thread.current
         }
